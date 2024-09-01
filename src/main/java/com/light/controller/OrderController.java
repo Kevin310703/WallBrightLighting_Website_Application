@@ -60,13 +60,13 @@ public class OrderController {
         }
         long countOrder = orderRepository.findAll()
                 .stream()
-                .filter(o -> o.getUser().getId() == currentUser.getId() && o.getOrderstatus().getId() == statusId)
+                .filter(o -> o.getUser().getId() == currentUser.getId() && o.getOrderStatus().getId() == statusId)
                 .count();
         model.addAttribute("count", countOrder);
 
         List<ListOrderDTO> listOrder = orderRepository.findAll()
                 .stream()
-                .filter(o -> o.getUser().getId() == currentUser.getId() && o.getOrderstatus().getId() == statusId)
+                .filter(o -> o.getUser().getId() == currentUser.getId() && o.getOrderStatus().getId() == statusId)
                 .map(this::toListOrderDTO)
                 .collect(Collectors.toList());
         model.addAttribute("history", listOrder);
@@ -91,7 +91,7 @@ public class OrderController {
 
         List<ListOrderDTO> listOrder = orderRepository.findAll()
                 .stream()
-                .filter(o -> o.getOrderstatus().getId() == statusId)
+                .filter(o -> o.getOrderStatus().getId() == statusId)
                 .map(this::toListOrderDTO)
                 .collect(Collectors.toList());
         model.addAttribute("orders", listOrder);
@@ -110,7 +110,7 @@ public class OrderController {
         Order order = orderRepository.findById(orderId)
                 .orElse(null);
         if(order != null){
-            order.setOrderstatus(orderStatusRepository.findById(statusId).orElse(null));
+            order.setOrderStatus(orderStatusRepository.findById(statusId).orElse(null));
             orderRepository.save(order);
         }
         return "redirect:/order/all/" + statusId;
@@ -127,7 +127,7 @@ public class OrderController {
             newOrder.setPhone(request.getPhone());
             newOrder.setNotes(request.getNote());
             newOrder.setUser(user);
-            newOrder.setOrderstatus(orderStatusRepository.findById(5L).orElse(null));
+            newOrder.setOrderStatus(orderStatusRepository.findById(5L).orElse(null));
             newOrder.setOrderDate(new Timestamp(System.currentTimeMillis()));
             orderRepository.save(newOrder);
 
@@ -191,12 +191,12 @@ public class OrderController {
         try {
             Order order = orderRepository.findAll()
                     .stream()
-                    .filter(o -> o.getId() == orderId && o.getOrderstatus().getId() == 5)
+                    .filter(o -> o.getId() == orderId && o.getOrderStatus().getId() == 5)
                     .findAny()
                     .orElse(null);
 
             assert order != null;
-            order.setOrderstatus(orderStatusRepository.findById(4L).orElse(null));
+            order.setOrderStatus(orderStatusRepository.findById(4L).orElse(null));
 
             List<OrderDetail> orderDetails = orderDetailRepository.findAll()
                     .stream()
@@ -221,8 +221,8 @@ public class OrderController {
                 .filter(od -> od.getOrder().getId() == order.getId())
                 .map(this::toOrderProductDTO)
                 .collect(Collectors.toList()),
-                order.getOrderstatus().getId(),
-                order.getOrderstatus().getName(),
+                order.getOrderStatus().getId(),
+                order.getOrderStatus().getName(),
                 order.getUser().getId(),
                 order.getFirstname(),
                 order.getLastName(),

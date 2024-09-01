@@ -8,68 +8,51 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "`order`")
 public class Order {
-    @Setter
-    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private long id;
 
-    @Setter
-    @Getter
     @Basic
     @Column(name = "orderDate")
     private Timestamp orderDate;
 
-    @Setter
-    @Getter
     @Basic
     @Column(name = "notes")
     private String notes;
 
-    @Setter
-    @Getter
     @Basic
     @Column(name = "firstname")
     private String firstname;
 
-    @Setter
-    @Getter
     @Basic
     @Column(name = "lastName")
     private String lastName;
 
-    @Setter
-    @Getter
     @Basic
     @Column(name = "address")
     private String address;
 
-    @Setter
-    @Getter
     @Basic
     @Column(name = "phone")
     private String phone;
 
-    @Setter
-    @Getter
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
 
-    @Setter
-    @Getter
     @ManyToOne
     @JoinColumn(name = "orderStatusId", referencedColumnName = "id")
-    private OrderStatus orderstatus;
+    private OrderStatus orderStatus;
 
     @OneToMany(mappedBy = "order")
     private Collection<OrderDetail> orderDetails;
 
-    @Getter
     @OneToMany(mappedBy = "order")
     private Collection<Transaction> transactions;
 
@@ -101,17 +84,5 @@ public class Order {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
-    }
-
-    public Collection<OrderDetail> getOrderdetails() {
-        return orderDetails;
-    }
-
-    public void setOrderdetails(Collection<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public void setTransactions(Collection<Transaction> transactions) {
-        this.transactions = transactions;
     }
 }

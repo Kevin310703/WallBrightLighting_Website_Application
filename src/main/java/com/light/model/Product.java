@@ -89,8 +89,10 @@ public class Product {
     @Getter
     @Basic
     @Column(name = "saleprice")
-    private BigDecimal saleprice;
+    private BigDecimal salePrice;
 
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "product")
     private Collection<CartItem> cartItems;
 
@@ -136,7 +138,7 @@ public class Product {
         if (!Objects.equals(modifyBy, product.modifyBy)) return false;
         if (!Objects.equals(image, product.image)) return false;
 
-        if (!Objects.equals(saleprice, product.saleprice)) return false;
+        if (!Objects.equals(salePrice, product.salePrice)) return false;
 
         return true;
     }
@@ -155,15 +157,7 @@ public class Product {
         result = 31 * result + (modifyAt != null ? modifyAt.hashCode() : 0);
         result = 31 * result + (modifyBy != null ? modifyBy.hashCode() : 0);
         result = 31 * result + (image != null ? image.hashCode() : 0);
-        result = 31 * result + (saleprice != null ? saleprice.hashCode() : 0);
+        result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
         return result;
-    }
-
-    public Collection<CartItem> getCartitems() {
-        return cartItems;
-    }
-
-    public void setCartitems(Collection<CartItem> cartItems) {
-        this.cartItems = cartItems;
     }
 }

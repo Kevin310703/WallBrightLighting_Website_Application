@@ -23,9 +23,9 @@ public class OrderStatus {
 
     @Basic
     @Column(name = "bootstapicon")
-    private String bootstapicon;
+    private String bootstapIcon;
 
-    @OneToMany(mappedBy = "orderstatus")
+    @OneToMany(mappedBy = "orderStatus")
     private Collection<Order> orders;
 
     @Override
@@ -37,14 +37,14 @@ public class OrderStatus {
 
         if (id != that.id) return false;
         if (!Objects.equals(name, that.name)) return false;
-        return Objects.equals(bootstapicon, that.bootstapicon);
+        return Objects.equals(bootstapIcon, that.bootstapIcon);
     }
 
     @Override
     public int hashCode() {
         int result = Long.hashCode(id);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (bootstapicon != null ? bootstapicon.hashCode() : 0);
+        result = 31 * result + (bootstapIcon != null ? bootstapIcon.hashCode() : 0);
         return result;
     }
 }

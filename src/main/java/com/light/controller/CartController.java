@@ -184,8 +184,8 @@ public class CartController {
     }
 
     private CartItemDTO toCartItemDTO(CartItem cartitem) {
-        BigDecimal price = cartitem.getProduct().getSaleprice() != null ?
-                (cartitem.getProduct().getSaleprice().multiply(BigDecimal.valueOf(cartitem.getQuantity()))) :
+        BigDecimal price = cartitem.getProduct().getSalePrice() != null ?
+                (cartitem.getProduct().getSalePrice().multiply(BigDecimal.valueOf(cartitem.getQuantity()))) :
                 (cartitem.getProduct().getPrice().multiply(BigDecimal.valueOf(cartitem.getQuantity())));
 
         return new CartItemDTO(cartitem.getId(),

@@ -120,9 +120,9 @@ public class ProductController {
         newProduct.setPrice(new BigDecimal(request.getPrice()));
         newProduct.setProductstatus(productStatusRepository.findById(request.getProductStatusId()).orElse(null));
         if (request.getSalePrice() == null || request.getSalePrice().isEmpty()) {
-            newProduct.setSaleprice(null);
+            newProduct.setSalePrice(null);
         } else {
-            newProduct.setSaleprice(new BigDecimal(request.getSalePrice()));
+            newProduct.setSalePrice(new BigDecimal(request.getSalePrice()));
         }
         newProduct.setCategory(categoryRepository.findById(request.getCategoryId()).orElse(null));
         newProduct.setDescription(request.getDescription());
@@ -195,9 +195,9 @@ public class ProductController {
         newProduct.setPrice(new BigDecimal(request.getPrice()));
         newProduct.setProductstatus(productStatusRepository.findById(request.getProductStatusId()).orElse(null));
         if (request.getSalePrice() == null || request.getSalePrice().isEmpty()) {
-            newProduct.setSaleprice(null);
+            newProduct.setSalePrice(null);
         } else {
-            newProduct.setSaleprice(new BigDecimal(request.getSalePrice()));
+            newProduct.setSalePrice(new BigDecimal(request.getSalePrice()));
         }
         newProduct.setCategory(categoryRepository.findById(request.getCategoryId()).orElse(null));
         newProduct.setDescription(request.getDescription());
@@ -274,7 +274,7 @@ public class ProductController {
                 product.getProductstatus().getName(),
                 product.getPrice(),
                 product.getQuantity(),
-                product.getSaleprice(),
+                product.getSalePrice(),
                 product.getImage(),
                 product.getDescription());
     }

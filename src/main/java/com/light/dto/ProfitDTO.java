@@ -5,8 +5,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Setter
 @Getter
+@Setter
 public class ProfitDTO {
     private String month;
     private BigDecimal total;
@@ -17,4 +17,5 @@ public class ProfitDTO {
         this.month = month;
         this.total = total;
     }
+
 }
