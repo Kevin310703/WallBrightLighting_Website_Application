@@ -16,9 +16,11 @@ public class Role {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "name")
     private String name;
+
     @OneToMany(mappedBy = "role")
     private Collection<User> users;
 
@@ -39,5 +41,4 @@ public class Role {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
-
 }

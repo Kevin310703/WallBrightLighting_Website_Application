@@ -16,12 +16,15 @@ public class OrderStatus {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "name")
     private String name;
+
     @Basic
     @Column(name = "bootstapicon")
     private String bootstapicon;
+
     @OneToMany(mappedBy = "orderstatus")
     private Collection<Order> orders;
 
@@ -44,5 +47,4 @@ public class OrderStatus {
         result = 31 * result + (bootstapicon != null ? bootstapicon.hashCode() : 0);
         return result;
     }
-
 }

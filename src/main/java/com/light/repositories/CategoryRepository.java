@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    @Query("SELECT NEW fit.se2.se02_project.dto.CountCategoryDTO(c.categoryName, c.id, CAST(SUM(od.quantity) AS INTEGER)) " +
+    @Query("SELECT NEW com.light.dto.CountCategoryDTO(c.categoryName, c.id, CAST(SUM(od.quantity) AS INTEGER)) " +
             "FROM Order o " +
             "JOIN o.orderdetails od " +
             "JOIN od.product p " +

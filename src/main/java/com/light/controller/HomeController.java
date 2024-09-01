@@ -25,6 +25,7 @@ public class HomeController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Autowired
     private CommonService commonService;
 

@@ -1,6 +1,5 @@
 package com.light.interceptor;
 
-
 import com.light.model.User;
 import com.light.service.CommonService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 
 public class JwtCheckRoleInterceptor implements HandlerInterceptor, ApplicationContextAware {
 

@@ -29,14 +29,19 @@ import java.util.stream.IntStream;
 public class DashboardController {
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+
     @Autowired
     private ProductRepository productRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Autowired
     private TransactionRepository transactionRepository;
+
     @Autowired
     private CommonService commonService;
 
@@ -46,17 +51,18 @@ public class DashboardController {
         if (currentUser == null || currentUser.getRole().getId() != 1){
             return "redirect:/auth/login";
         }
+
         int currentYear = Year.now().getValue();
 
-        List<MonthitemDTO> months = IntStream.rangeClosed(1, 12)
-                .mapToObj(i -> new MonthitemDTO(i, Month.of(i).getDisplayName(TextStyle.FULL, Locale.getDefault())))
+        List<MonthItemDTO> months = IntStream.rangeClosed(1, 12)
+                .mapToObj(i -> new MonthItemDTO(i, Month.of(i).getDisplayName(TextStyle.FULL, Locale.getDefault())))
                 .collect(Collectors.toList());
 
-        List<YearitemDTO> years = IntStream.rangeClosed(2000, currentYear)
-                .mapToObj(i -> new YearitemDTO(i, String.valueOf(i)))
+        List<YearItemDTO> years = IntStream.rangeClosed(2000, currentYear)
+                .mapToObj(i -> new YearItemDTO(i, String.valueOf(i)))
                 .collect(Collectors.toList());
 
-        List<CountProductDTO> data = productRepository.getProductsummary(year, month);
+        List<CountProductDTO> data = productRepository.getProductSummary(year, month);
 
         List<String> labels = data.stream()
                 .map(CountProductDTO::getProductName)
@@ -83,12 +89,12 @@ public class DashboardController {
         }
         int currentYear = Year.now().getValue();
 
-        List<MonthitemDTO> months = IntStream.rangeClosed(1, 12)
-                .mapToObj(i -> new MonthitemDTO(i, Month.of(i).getDisplayName(TextStyle.FULL, Locale.getDefault())))
+        List<MonthItemDTO> months = IntStream.rangeClosed(1, 12)
+                .mapToObj(i -> new MonthItemDTO(i, Month.of(i).getDisplayName(TextStyle.FULL, Locale.getDefault())))
                 .collect(Collectors.toList());
 
-        List<YearitemDTO> years = IntStream.rangeClosed(2000, currentYear)
-                .mapToObj(i -> new YearitemDTO(i, String.valueOf(i)))
+        List<YearItemDTO> years = IntStream.rangeClosed(2000, currentYear)
+                .mapToObj(i -> new YearItemDTO(i, String.valueOf(i)))
                 .collect(Collectors.toList());
 
         List<CountCategoryDTO> data = categoryRepository.getSummary(year, month);
@@ -118,12 +124,12 @@ public class DashboardController {
         }
         int currentYear = Year.now().getValue();
 
-        List<YearitemDTO> years = IntStream.rangeClosed(2000, currentYear)
-                .mapToObj(i -> new YearitemDTO(i, String.valueOf(i)))
+        List<YearItemDTO> years = IntStream.rangeClosed(2000, currentYear)
+                .mapToObj(i -> new YearItemDTO(i, String.valueOf(i)))
                 .collect(Collectors.toList());
 
-        List<MonthitemDTO> months = IntStream.rangeClosed(1, 12)
-                .mapToObj(i -> new MonthitemDTO(i, YearMonth.of(2000, i).getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault())))
+        List<MonthItemDTO> months = IntStream.rangeClosed(1, 12)
+                .mapToObj(i -> new MonthItemDTO(i, YearMonth.of(2000, i).getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault())))
                 .collect(Collectors.toList());
 
         YearMonth startDate = YearMonth.of(year, 1);

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    @Query("SELECT NEW fit.se2.se02_project.dto.ProfitDTO(FUNCTION('MONTHNAME', o.orderDate), COALESCE(SUM(t.total), 0)) " +
+    @Query("SELECT NEW com.light.dto.ProfitDTO(FUNCTION('MONTHNAME', o.orderDate), COALESCE(SUM(t.total), 0)) " +
             "FROM Order o " +
             "LEFT JOIN Transaction t ON o.id = t.order.id " +
             "GROUP BY FUNCTION('MONTH', o.orderDate) " +

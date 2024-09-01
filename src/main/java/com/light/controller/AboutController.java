@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AboutController {
     @Autowired
     private CommonService commonService;
+
     @GetMapping("/index")
     public String about(Model model) {
         User currentUser = commonService.getCurrentUser();

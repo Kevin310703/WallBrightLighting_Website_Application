@@ -30,6 +30,7 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private RoleRepository roleRepository;
 
@@ -94,6 +95,7 @@ public class AuthController {
         response.addCookie(cookie);
         return "redirect:/";
     }
+
     @GetMapping("/register")
     public String register() {
         return "register";

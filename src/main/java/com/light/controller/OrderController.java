@@ -24,22 +24,31 @@ import java.util.stream.Collectors;
 public class OrderController {
     @Autowired
     private CommonService commonService;
+
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private OrderStatusRepository orderStatusRepository;
+
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+
     @Autowired
     private ProductRepository productRepository;
+
     @Autowired
     private TransactionRepository transactionRepository;
+
     @Autowired
     private PaymentRepository paymentRepository;
+
     @Autowired
     private CartRepository cartRepository;
+
     @Autowired
     private CartItemsRepository cartItemsRepository;
+
     @Autowired
     private ProductStatusRepository productStatusRepository;
 
@@ -65,10 +74,7 @@ public class OrderController {
         List<OrderStatus> orderStatus = orderStatusRepository.findAll();
         model.addAttribute("orderStatus", orderStatus);
 
-        OrderStatus currentOrderStatus = orderStatusRepository.findById(statusId).orElse(null);
-        if (currentOrderStatus != null) {
-            model.addAttribute("orderStatusName", currentOrderStatus.getName());
-        }
+        orderStatusRepository.findById(statusId).ifPresent(currentOrderStatus -> model.addAttribute("orderStatusName", currentOrderStatus.getName()));
 
         model.addAttribute("statusId", statusId);
         model.addAttribute("user", currentUser);
@@ -95,6 +101,7 @@ public class OrderController {
                 .map(os -> new OrderStatusDTO(os.getId(),os.getName()))
                 .collect(Collectors.toList());
         model.addAttribute("orderStatus", orderStatus);
+
         return "allorder";
     }
 
@@ -135,7 +142,7 @@ public class OrderController {
             }
 
             BigDecimal getTotal = orderRepository.getTotal(newOrder.getId());
-            Payment payment = paymentRepository.findById(Long.valueOf(request.getPayment())).orElse(null);
+            Payment payment = paymentRepository.findById((long) request.getPayment()).orElse(null);
 
             Transaction newTransaction = new Transaction();
             newTransaction.setOrder(newOrder);

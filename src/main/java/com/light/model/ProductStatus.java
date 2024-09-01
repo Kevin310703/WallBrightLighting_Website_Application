@@ -16,9 +16,11 @@ public class ProductStatus {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "name")
     private String name;
+
     @OneToMany(mappedBy = "productstatus")
     private Collection<Product> products;
 
@@ -39,5 +41,4 @@ public class ProductStatus {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
-
 }

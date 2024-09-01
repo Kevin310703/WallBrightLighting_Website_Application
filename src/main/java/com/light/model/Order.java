@@ -1,103 +1,77 @@
 package com.light.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "`order`")
 public class Order {
+    @Setter
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private long id;
 
+    @Setter
+    @Getter
     @Basic
     @Column(name = "orderDate")
     private Timestamp orderDate;
+
+    @Setter
+    @Getter
     @Basic
     @Column(name = "notes")
     private String notes;
+
+    @Setter
+    @Getter
     @Basic
     @Column(name = "firstname")
     private String firstname;
+
+    @Setter
+    @Getter
     @Basic
     @Column(name = "lastName")
     private String lastName;
+
+    @Setter
+    @Getter
     @Basic
     @Column(name = "address")
     private String address;
+
+    @Setter
+    @Getter
     @Basic
     @Column(name = "phone")
     private String phone;
+
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
+
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "orderStatusId", referencedColumnName = "id")
     private OrderStatus orderstatus;
+
     @OneToMany(mappedBy = "order")
     private Collection<OrderDetail> orderDetails;
+
+    @Getter
     @OneToMany(mappedBy = "order")
     private Collection<Transaction> transactions;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public Timestamp getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Timestamp orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -107,19 +81,19 @@ public class Order {
         Order order = (Order) o;
 
         if (id != order.id) return false;
-        if (orderDate != null ? !orderDate.equals(order.orderDate) : order.orderDate != null) return false;
-        if (notes != null ? !notes.equals(order.notes) : order.notes != null) return false;
-        if (firstname != null ? !firstname.equals(order.firstname) : order.firstname != null) return false;
-        if (lastName != null ? !lastName.equals(order.lastName) : order.lastName != null) return false;
-        if (address != null ? !address.equals(order.address) : order.address != null) return false;
-        if (phone != null ? !phone.equals(order.phone) : order.phone != null) return false;
+        if (!Objects.equals(orderDate, order.orderDate)) return false;
+        if (!Objects.equals(notes, order.notes)) return false;
+        if (!Objects.equals(firstname, order.firstname)) return false;
+        if (!Objects.equals(lastName, order.lastName)) return false;
+        if (!Objects.equals(address, order.address)) return false;
+        if (!Objects.equals(phone, order.phone)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = Long.hashCode(id);
         result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
@@ -129,32 +103,12 @@ public class Order {
         return result;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public OrderStatus getOrderstatus() {
-        return orderstatus;
-    }
-
-    public void setOrderstatus(OrderStatus orderstatus) {
-        this.orderstatus = orderstatus;
-    }
-
     public Collection<OrderDetail> getOrderdetails() {
         return orderDetails;
     }
 
     public void setOrderdetails(Collection<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
-    }
-
-    public Collection<Transaction> getTransactions() {
-        return transactions;
     }
 
     public void setTransactions(Collection<Transaction> transactions) {

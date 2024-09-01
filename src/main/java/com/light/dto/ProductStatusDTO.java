@@ -1,5 +1,10 @@
 package com.light.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class ProductStatusDTO {
     private long id;
     private String name;
@@ -9,22 +14,5 @@ public class ProductStatusDTO {
         this.name = name;
     }
 
-    public ProductStatusDTO() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public ProductStatusDTO() {;}
 }

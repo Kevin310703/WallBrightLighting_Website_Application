@@ -10,13 +10,11 @@ public class CountProductDTO {
     private String productName;
     private long productId;
 
-    public CountProductDTO() {
-    }
+    public CountProductDTO() {;}
 
     public CountProductDTO(int count, String productName, long productId) {
         this.count = count;
         this.productName = productName;
         this.productId = productId;
     }
-
 }

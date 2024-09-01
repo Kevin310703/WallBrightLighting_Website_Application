@@ -20,12 +20,15 @@ public class Rate {
     @Basic
     @Column(name = "star")
     private Short star;
+
     @Basic
     @Column(name = "createAt")
     private Timestamp createAt;
+
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
+
     @ManyToOne
     @JoinColumn(name = "productId", referencedColumnName = "id")
     private Product product;
@@ -51,5 +54,4 @@ public class Rate {
         result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
         return result;
     }
-
 }

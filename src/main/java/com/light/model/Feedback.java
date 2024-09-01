@@ -16,18 +16,23 @@ public class Feedback {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "comment")
     private String comment;
+
     @Basic
     @Column(name = "rate")
     private Short rate;
+
     @Basic
     @Column(name = "createAt")
     private Timestamp createdAt;
+
     @Basic
     @Column(name = "email")
     private String email;
+
     @Basic
     @Column(name = "name")
     private String name;

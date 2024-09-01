@@ -19,9 +19,11 @@ public class CartItem {
     @Basic
     @Column(name = "quantity")
     private Integer quantity;
+
     @ManyToOne
     @JoinColumn(name = "productID", referencedColumnName = "id")
     private Product product;
+
     @ManyToOne
     @JoinColumn(name = "cartID", referencedColumnName = "id")
     private Cart cart;

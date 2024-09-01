@@ -25,8 +25,10 @@ import java.util.stream.Collectors;
 public class FeedbackController {
     @Autowired
     private FeedbackRepository feedbackRepository;
+
     @Autowired
     private CommonService commonService;
+
     @GetMapping("/index")
     public String index(Model model, @RequestParam(required = false) Map<String, String> message) {
         User currentUser = commonService.getCurrentUser();
@@ -34,6 +36,7 @@ public class FeedbackController {
         model.addAttribute("user", currentUser);
         return "feedback";
     }
+
     @GetMapping("/all")
     public String all(Model model) {
         User currentUser = commonService.getCurrentUser();
@@ -50,19 +53,7 @@ public class FeedbackController {
 
     @PostMapping("/send")
     public String send(FeedbackRequest request) {
-        Map<String, String> errorList = new HashMap<>();
-        if (request.getName() == null) {
-            errorList.put("NullName", "* Name cannot be empty");
-        }
-        if (request.getEmail() == null) {
-            errorList.put("NullEmail", "* Email cannot be empty");
-        }
-        if (request.getRate() == null) {
-            errorList.put("NullRate", "* Rate cannot be empty");
-        }
-        if (request.getComment() == null) {
-            errorList.put("NullComment", "* Comment cannot be empty");
-        }
+        Map<String, String> errorList = getStringStringMap(request);
         if (!errorList.isEmpty()) {
             return "redirect:/feedback/index?" + buildQueryString(errorList);
         }
@@ -76,6 +67,23 @@ public class FeedbackController {
         Map<String, String> success = new HashMap<>();
         success.put("Success", "Your message has been sent. Thank you!");
         return "redirect:/feedback/index?" + buildQueryString(success);
+    }
+
+    private static Map<String, String> getStringStringMap(FeedbackRequest request) {
+        Map<String, String> errorList = new HashMap<>();
+        if (request.getName() == null) {
+            errorList.put("NullName", "* Name cannot be empty");
+        }
+        if (request.getEmail() == null) {
+            errorList.put("NullEmail", "* Email cannot be empty");
+        }
+        if (request.getRate() == null) {
+            errorList.put("NullRate", "* Rate cannot be empty");
+        }
+        if (request.getComment() == null) {
+            errorList.put("NullComment", "* Comment cannot be empty");
+        }
+        return errorList;
     }
 
     private String buildQueryString(Map<String, String> params) {

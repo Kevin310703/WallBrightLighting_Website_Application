@@ -25,38 +25,48 @@ import java.util.stream.Collectors;
 public class CartController {
     @Autowired
     private CartRepository cartRepository;
+
     @Autowired
     private CartItemsRepository cartItemsRepository;
+
     @Autowired
     private PaymentRepository paymentRepository;
+
     @Autowired
     private ProductRepository productRepository;
+
     @Autowired
     private CommonService commonService;
+
     @GetMapping("/index")
     public String index(Model model, @RequestParam(required = false) String alertMessage, @RequestParam(required = false) String orderSuccess) {
         User user = commonService.getCurrentUser();
         model.addAttribute("user", user);
+
         if (user == null){
             return "redirect:/auth/login";
         }
+
         Cart userCart = cartRepository.findAll()
                 .stream()
                 .filter(c -> c.getUser().getId() == user.getId())
                 .findAny()
                 .orElse(null);
+
         if (userCart == null) {
             userCart = new Cart();
             userCart.setUser(user);
             userCart.setCreatedAt(new Timestamp(System.currentTimeMillis()));
             cartRepository.save(userCart);
         }
+
         Cart finalUserCart = userCart;
         List<CartItemDTO> productsInCart = cartItemsRepository.findAll()
                 .stream()
                 .filter(ci -> ci.getCart().getId() == finalUserCart.getId())
                 .map(this::toCartItemDTO)
                 .collect(Collectors.toList());
+
         BigDecimal total = cartRepository.getTotal(userCart.getId());
         List<Payment> payments = paymentRepository.findAll();
         model.addAttribute("products", productsInCart);
@@ -64,6 +74,7 @@ public class CartController {
         model.addAttribute("payments", payments);
         model.addAttribute("AlertMessage", alertMessage);
         model.addAttribute("OrderSuccess", orderSuccess);
+
         return "cart";
     }
 
@@ -71,9 +82,11 @@ public class CartController {
     public String add(AddtoCartRequest request, Model model){
         try {
             User user = commonService.getCurrentUser();
+
             if (user == null){
                 return "redirect:/auth/login";
             }
+
             Optional<Cart> optionalCart  = cartRepository.findAll()
                     .stream()
                     .filter(c -> c.getUser().getId() == user.getId())
@@ -95,6 +108,7 @@ public class CartController {
                 String message = "Product has already in cart";
                 return "redirect:/cart/index?alertMessage=" + message;
             }
+
             Product product = productRepository.findAll()
                     .stream()
                     .filter(p -> p.getId() == request.getProductId())
@@ -117,18 +131,22 @@ public class CartController {
     public String delete(@RequestParam ("productId") Long productId) {
         try {
             User user = commonService.getCurrentUser();
+
             if (user == null){
                 return "redirect:/auth/login";
             }
+
             Cart userCart = cartRepository.findAll()
                     .stream()
                     .filter(c -> c.getUser().getId() == user.getId())
                     .findAny()
                     .orElse(null);
+
             cartItemsRepository.findAll()
                     .stream()
                     .filter(p -> p.getProduct().getId() == productId && p.getCart().getId() == userCart.getId())
                     .findAny().ifPresent(product -> cartItemsRepository.delete(product));
+
             return "redirect:/cart/index";
         } catch (Exception ex) {
             return "redirect:/error";
@@ -143,6 +161,7 @@ public class CartController {
             assert cartItem != null;
             cartItem.setQuantity(cartItem.getQuantity() + 1);
             cartItemsRepository.save(cartItem);
+
             return "redirect:/cart/index";
         } catch (Exception ex) {
             return "redirect:/error/index";
@@ -157,6 +176,7 @@ public class CartController {
             assert cartItem != null;
             cartItem.setQuantity(cartItem.getQuantity() - 1);
             cartItemsRepository.save(cartItem);
+
             return "redirect:/cart/index";
         } catch (Exception ex) {
             return "redirect:/error/index";

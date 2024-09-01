@@ -4,6 +4,7 @@ import com.light.model.User;
 import com.light.repositories.UserRepository;
 import com.light.request.ChangeRequest;
 import com.light.service.CommonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ public class UserController {
     private CommonService commonService;
     @Autowired
     private UserRepository userRepository;
+
     @GetMapping("/profile")
     public String profile(Model model, @RequestParam(required = false) Map<String, String> responseMessage) {
         model.addAttribute("response", responseMessage);
@@ -42,9 +44,12 @@ public class UserController {
             if (request.getCurrentPass() == null || request.getNewPass() == null || request.getConfirmNewPass() == null) {
                 errorList.put("Empty", "* Cannot be empty!");
             }
+
+            assert request.getNewPass() != null;
             if (!request.getNewPass().equals(request.getConfirmNewPass())) {
                 errorList.put("NotMatch", "* Passwords do not match");
             }
+
             if (!errorList.isEmpty()) {
                 return "redirect:/user/profile?" + buildQueryString(errorList);
             }

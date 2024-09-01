@@ -10,7 +10,7 @@ import com.light.model.User;
 import com.light.repositories.CategoryRepository;
 import com.light.repositories.ProductRepository;
 import com.light.repositories.ProductStatusRepository;
-import com.light.request.AddproductRequest;
+import com.light.request.AddProductRequest;
 import com.light.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -98,7 +98,7 @@ public class ProductController {
         return "editproduct";
     }
     @PostMapping("/update/{productId}")
-    public String update(Model model, @PathVariable Long productId, @ModelAttribute AddproductRequest request) {
+    public String update(Model model, @PathVariable Long productId, @ModelAttribute AddProductRequest request) {
         User currentUser = commonService.getCurrentUser();
         Map<String, String> errorList = new HashMap<>();
         if (request.getProductName() == null || request.getProductName().isEmpty()) {
@@ -119,10 +119,10 @@ public class ProductController {
         newProduct.setQuantity(Integer.parseInt(request.getQuantity()));
         newProduct.setPrice(new BigDecimal(request.getPrice()));
         newProduct.setProductstatus(productStatusRepository.findById(request.getProductStatusId()).orElse(null));
-        if (request.getSaleprice() == null || request.getSaleprice().isEmpty()) {
+        if (request.getSalePrice() == null || request.getSalePrice().isEmpty()) {
             newProduct.setSaleprice(null);
         } else {
-            newProduct.setSaleprice(new BigDecimal(request.getSaleprice()));
+            newProduct.setSaleprice(new BigDecimal(request.getSalePrice()));
         }
         newProduct.setCategory(categoryRepository.findById(request.getCategoryId()).orElse(null));
         newProduct.setDescription(request.getDescription());
@@ -174,7 +174,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String add(Model model, @ModelAttribute AddproductRequest request) {
+    public String add(Model model, @ModelAttribute AddProductRequest request) {
         User currentUser = commonService.getCurrentUser();
         Map<String, String> errorList = new HashMap<>();
         if (request.getProductName() == null || request.getProductName().isEmpty()) {
@@ -194,10 +194,10 @@ public class ProductController {
         newProduct.setQuantity(Integer.parseInt(request.getQuantity()));
         newProduct.setPrice(new BigDecimal(request.getPrice()));
         newProduct.setProductstatus(productStatusRepository.findById(request.getProductStatusId()).orElse(null));
-        if (request.getSaleprice() == null || request.getSaleprice().isEmpty()) {
+        if (request.getSalePrice() == null || request.getSalePrice().isEmpty()) {
             newProduct.setSaleprice(null);
         } else {
-            newProduct.setSaleprice(new BigDecimal(request.getSaleprice()));
+            newProduct.setSaleprice(new BigDecimal(request.getSalePrice()));
         }
         newProduct.setCategory(categoryRepository.findById(request.getCategoryId()).orElse(null));
         newProduct.setDescription(request.getDescription());

@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-
 public class JwtCookieInterceptor implements HandlerInterceptor {
 
     @Override
@@ -25,6 +24,7 @@ public class JwtCookieInterceptor implements HandlerInterceptor {
         response.sendRedirect("/auth/login");
         return false;
     }
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
     }

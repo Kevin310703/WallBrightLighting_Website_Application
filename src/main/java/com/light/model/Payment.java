@@ -16,9 +16,11 @@ public class Payment {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "name")
     private String name;
+
     @OneToMany(mappedBy = "payment")
     private Collection<Transaction> transactions;
 
@@ -39,5 +41,4 @@ public class Payment {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
-
 }

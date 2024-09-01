@@ -1,5 +1,10 @@
 package com.light.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class FeedbackDTO {
     private long id;
     private String name;
@@ -27,46 +32,6 @@ public class FeedbackDTO {
         this.rate = rate;
     }
 
-    public FeedbackDTO() {
-    }
+    public FeedbackDTO() {;}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Short getRate() {
-        return rate;
-    }
-
-    public void setRate(Short rate) {
-        this.rate = rate;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }

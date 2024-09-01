@@ -18,76 +18,101 @@ public class Product {
     @Id
     @Column(name = "id")
     private long id;
+
     @Setter
     @Getter
     @Basic
     @Column(name = "productName")
     private String productName;
+
     @Setter
     @Getter
     @Basic
     @Column(name = "title")
     private String title;
+
     @Setter
     @Getter
     @Basic
     @Column(name = "price")
     private BigDecimal price;
+
     @Setter
     @Getter
     @Basic
     @Column(name = "description")
     private String description;
+
     @Setter
     @Getter
     @Basic
     @Column(name = "quantity")
     private Integer quantity;
+
     @Getter
     @Setter
     @Basic
     @Column(name = "isActive")
     private Byte isActive;
+
     @Getter
     @Setter
     @Basic
     @Column(name = "createAt")
     private Timestamp createAt;
+
     @Getter
     @Setter
     @Basic
     @Column(name = "createBy")
     private String createBy;
+
     @Getter
     @Setter
     @Basic
     @Column(name = "modifyAt")
     private Timestamp modifyAt;
+
     @Getter
     @Setter
     @Basic
     @Column(name = "modifyBy")
     private String modifyBy;
+
     @Getter
     @Setter
     @Basic
     @Column(name = "image")
     private String image;
+
     @Setter
     @Getter
     @Basic
     @Column(name = "saleprice")
     private BigDecimal saleprice;
+
     @OneToMany(mappedBy = "product")
     private Collection<CartItem> cartItems;
+
+    @Setter
+    @Getter
     @OneToMany(mappedBy = "product")
     private Collection<OrderDetail> orderDetails;
+
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private Category category;
+
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "productStatusId", referencedColumnName = "id")
     private ProductStatus productstatus;
+
+    @Setter
+    @Getter
     @OneToMany(mappedBy = "product")
     private Collection<Rate> rates;
 
@@ -140,37 +165,5 @@ public class Product {
 
     public void setCartitems(Collection<CartItem> cartItems) {
         this.cartItems = cartItems;
-    }
-
-    public Collection<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Collection<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public ProductStatus getProductstatus() {
-        return productstatus;
-    }
-
-    public void setProductstatus(ProductStatus productstatus) {
-        this.productstatus = productstatus;
-    }
-
-    public Collection<Rate> getRates() {
-        return rates;
-    }
-
-    public void setRates(Collection<Rate> rates) {
-        this.rates = rates;
     }
 }

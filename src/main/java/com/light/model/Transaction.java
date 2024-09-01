@@ -16,12 +16,15 @@ public class Transaction {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "total")
     private BigDecimal total;
+
     @ManyToOne
     @JoinColumn(name = "orderID", referencedColumnName = "id")
     private Order order;
+
     @ManyToOne
     @JoinColumn(name = "paymentID", referencedColumnName = "id")
     private Payment payment;

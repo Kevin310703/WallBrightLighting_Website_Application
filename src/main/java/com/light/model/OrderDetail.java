@@ -16,19 +16,22 @@ public class OrderDetail {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "quantity")
     private Integer quantity;
+
     @Basic
     @Column(name = "price")
     private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "productID", referencedColumnName = "id")
     private Product product;
+
     @ManyToOne
     @JoinColumn(name = "orderID", referencedColumnName = "id")
     private Order order;
-
 
     @Override
     public boolean equals(Object o) {
@@ -49,5 +52,4 @@ public class OrderDetail {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
     }
-
 }
