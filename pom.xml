@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>20</java.version>
 		<spring-boot-admin.version>3.3.2</spring-boot-admin.version>
 	</properties>
 	<dependencies>

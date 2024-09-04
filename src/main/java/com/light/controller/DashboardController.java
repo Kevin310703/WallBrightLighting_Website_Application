@@ -49,7 +49,7 @@ public class DashboardController {
     public String index(@RequestParam("year") int year, @RequestParam("month") int month, Model model){
         User currentUser = commonService.getCurrentUser();
         if (currentUser == null || currentUser.getRole().getId() != 1){
-            return "redirect:/auth/login";
+            return "redirect:/auth/register";
         }
 
         int currentYear = Year.now().getValue();

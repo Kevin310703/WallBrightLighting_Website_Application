@@ -16,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.Console;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -42,6 +44,8 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@ModelAttribute LoginRequest request, HttpServletResponse response, Model model, RedirectAttributes redirectAttributes) {
         try {
+            List<User> userList = userRepository.findAll();
+            System.out.println(userList);
             Map<String, String> errorList = new HashMap<>();
             if (request.getUsername() == null || Objects.equals(request.getUsername(), "")) {
                 errorList.put("NullUsername", "* Username cannot be empty");
@@ -125,6 +129,7 @@ public class AuthController {
         if (request.getConfirmPassword() == null || Objects.equals(request.getConfirmPassword(), "")) {
             errorList.put("NullConfirmPassword", "* Confirm password cannot be empty");
         }
+        assert request.getPassword() != null;
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             errorList.put("NotMatch", "* Password does not match");
         }
